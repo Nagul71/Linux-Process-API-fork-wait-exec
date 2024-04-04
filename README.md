@@ -61,6 +61,8 @@ int main(void)
 
 ## OUTPUT
 
+![image](https://github.com/Nagul71/Linux-Process-API-fork-wait-exec/assets/118661118/3f991062-cedd-499a-ad85-2a461fed94ab)
+
 
 
 
@@ -105,6 +107,7 @@ exit(0);}
 
 
 ## OUTPUT
+![image](https://github.com/Nagul71/Linux-Process-API-fork-wait-exec/assets/118661118/4c957eb2-c99a-441b-899f-d1333e348bff)
 
 
 
@@ -115,33 +118,17 @@ exit(0);}
 
 ## C Program to execute Linux system commands using Linux API system calls exec() family
 ```c
+#include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <unistd.h>
-int main() {
-    pid_t pid = fork();
-    if (pid < 0) {
-        perror("Fork failed");
-        exit(EXIT_FAILURE);
-    } else if (pid == 0) {
-        printf("This is the child process. Executing 'ls' command.\n");
-        execl("/bin/ls", "ls", "-l", NULL); // Lists files in long format
-        perror("execl failed");
-        exit(EXIT_FAILURE);
-    } else {
-        int status;
-        waitpid(pid, &status, 0); // Wait for the child to finish
-        if (WIFEXITED(status)) {
-            printf("Child process exited with status %d.\n", WEXITSTATUS(status));
-        } else {
-            printf("Child process did not exit normally.\n");
-        }
-        printf("Parent process is done.\n");
-    }
-    return 0;
+int main()
+{
+	printf("Running ps with execlp\n");
+	execlp("ps", "ps", "ax", NULL);
+	printf("Done.\n");
+	exit(0);
 }
+
 ```
 
 
@@ -172,6 +159,7 @@ int main() {
 ## OUTPUT
 
 
+![image](https://github.com/Nagul71/Linux-Process-API-fork-wait-exec/assets/118661118/73ae8f79-76cc-4164-9594-8388b1db1348)
 
 
 
